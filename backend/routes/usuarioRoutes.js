@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const controladorPersona = require('../controllers/usuario.controller');
+const controladorPersona = require('../controllers/usuarioMongo.controller');
 const router = Router();
 const { check } = require('express-validator');
 const midsJWT = require("../middlewares/validarJWT");

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const controladorTarea = require('../controllers/tarea.controller');
+const controladorTarea = require('../controllers/tareaMongo.controller');
 const router = Router();
 const { check } = require('express-validator');
 const midsJWT = require("../middlewares/validarJWT");

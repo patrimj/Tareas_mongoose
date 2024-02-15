@@ -1,36 +1,17 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class Rol_Asignado extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+const mongooose = require ('mongoose');
 
-      this.belongsTo(models.Roles, {
-        foreignKey: 'id_rol',
-        as: 'roles'
-      }),
-
-        this.belongsTo(models.User, {
-          foreignKey: 'id_usuario',
-          as: 'users'
-        })
+const rolAsignadoSchema = new mongooose.Schema({
+    id_rol: {
+        type: Number,
+        required: true
+    },
+    id_usuario: {
+        type: Number,
+        required: true
     }
-  }
+}, {collection: 'Rol_Asignados' , versionKey:false});
 
-  Rol_Asignado.init({
-    id_rol: DataTypes.INTEGER,
-    id_usuario: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Rol_Asignado',
-    tableName: 'rol_asignados',
-  });
-  return Rol_Asignado;
-};
+const RolAsignadoModel = mongooose.model('Rol_Asignado', rolAsignadoSchema);
+
+module.exports = RolAsignadoModel;
+
