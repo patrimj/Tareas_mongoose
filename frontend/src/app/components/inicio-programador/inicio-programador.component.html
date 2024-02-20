@@ -1,0 +1,69 @@
+<header class="bg-primary text-white p-3" style="background-color: rgba(80, 133, 255, 0.612) !important;">
+    <h1 class="text-center mb-4">Hola, {{ nombre }}</h1>
+</header>
+<div class="container">
+    <h1> Mis Tareas</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID tarea</th>
+                <th>ID usuario</th>
+                <th>Descripcion</th>
+                <th>Dificultad</th>
+                <th>Horas previstas</th>
+                <th>Horas realizadas</th>
+                <th>Porcentaje realizacion</th>
+                <th>Completada</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(tareaPro of tareasPro; track tareaPro.id_tarea) {
+            <tr>
+                <td>{{tareaPro.id_tarea}}</td>
+                <td>{{tareaPro.id_usuario}}</td>
+                <td>{{tareaPro.tarea.descripcion}}</td>
+                <td>{{tareaPro.tarea.dificultad}}</td>
+                <td>{{tareaPro.tarea.horas_previstas}}</td>
+                <td>{{tareaPro.tarea.horas_realizadas}}</td>
+                <td>{{tareaPro.tarea.porcentaje_realizacion}}</td>
+                <td>{{tareaPro.tarea.completada}}</td>
+                <td><button (click)="seleccionar(tareaPro)" class="btn btn-primary">Seleccionar</button></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <h1>Completar tarea</h1>
+
+    <div class="form-group">
+        <label>id:</label>
+        <input type="number" [(ngModel)]="tareaPro.id_tarea" disabled="" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Descripcion:</label>
+        <input type="text" [(ngModel)]="tareaPro.tarea.descripcion" disabled="" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Dificultad:</label>
+        <input type="text" [(ngModel)]="tareaPro.tarea.dificultad" disabled="" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Horas previstas:</label>
+        <input type="number" [(ngModel)]="tareaPro.tarea.horas_previstas" disabled="" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Horas realizadas:</label>
+        <input type="number" [(ngModel)]="tareaPro.tarea.horas_realizadas" disabled="" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Porcentaje realizacion:</label>
+        <input type="number" [(ngModel)]="tareaPro.tarea.porcentaje_realizacion" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <button (click)="modificar()" class="btn btn-primary">Modificar</button>
+    </div>
+
+    <p>{{mensaje}}</p>
+
+    <button (click)="inicio()" type="button" class="btn btn-secondary mt-3">Volver al inicio</button>
+</div>

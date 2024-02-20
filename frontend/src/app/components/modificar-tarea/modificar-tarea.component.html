@@ -1,0 +1,72 @@
+<div class="container">
+   <h1 class="text-center">Tareas</h1>
+   @if (hayRegistros()) {
+   <table class="table">
+      <thead class="thead-dark">
+         <tr>
+            <th>ID</th>
+            <th>Descripcion</th>
+            <th>Dificultad</th>
+            <th>Horas previstas</th>
+            <th>Horas realizadas</th>
+            <th>Porcentaje realizacion</th>
+            <th>Completada</th>
+         </tr>
+      </thead>
+      <tbody>
+         @for(tarea of tareas; track tarea.id) {
+         <tr>
+            <td>{{tarea.id}}</td>
+            <td>{{tarea.descripcion}}</td>
+            <td>{{tarea.dificultad}}</td>
+            <td>{{tarea.horas_previstas}}</td>
+            <td>{{tarea.horas_realizadas}}</td>
+            <td>{{tarea.porcentaje_realizacion}}</td>
+            <td>{{tarea.completada}}</td>
+
+            <td><button class="btn btn-danger" (click)="borrar(tarea.id)">Borrar</button></td>
+            <td><button class="btn btn-primary" (click)="seleccionar(tarea)">Seleccionar</button></td>
+         </tr>
+         }
+      </tbody>
+   </table>
+   } @else {
+   <p class="alert alert-warning">No hay tareas.</p>
+   }
+
+
+   <div class="container mb-3">
+      <div>
+         <h1 class="text-center">Modificar Tareas</h1>
+         <p>
+            id:<input type="number" [(ngModel)]="tarea.id" class="form-control" />
+         </p>
+         <p>
+            Descripcion:<input type="text" [(ngModel)]="tarea.descripcion" class="form-control" />
+         </p>
+         <p>
+            Dificultad:<input type="text" [(ngModel)]="tarea.dificultad" class="form-control" />
+         </p>
+         <p>
+            Horas previstas:<input type="number" [(ngModel)]="tarea.horas_previstas" class="form-control" />
+
+         </p>
+         <p>
+            Horas realizadas:<input type="number" [(ngModel)]="tarea.horas_realizadas" class="form-control" />
+         </p>
+         <p>
+            Porcentaje realizacion:<input type="number" [(ngModel)]="tarea.porcentaje_realizacion"
+               class="form-control" />
+         </p>
+         <p>
+            Completada:<input type="checkbox" [(ngModel)]="tarea.completada" class="form-check-input" />
+         </p>
+         <p>
+            <button class="btn btn-success" (click)="agregar()">Agregar</button>
+            <button class="btn btn-warning" (click)="modificar()">Modificar</button>
+         </p>
+      </div>
+      <button (click)="inicio()" type="button" class="btn btn-secondary mt-3">Volver al inicio</button>
+   </div>
+   <p class="text-center">{{ mensaje }}</p>
+</div>

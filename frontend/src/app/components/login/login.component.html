@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <form (submit)="onSubmit()" class="form-group p-5 rounded bg-white shadow"
+        style="background-color: rgba(80, 133, 255, 0.612) !important;">
+        <h2 class="text-center mb-4">Iniciar sesión</h2>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" [(ngModel)]="email" name="email" required email class="form-control" id="email">
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" [(ngModel)]="password" name="password" required minlength="6" class="form-control"
+                id="password">
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+    </form>
+</div>
+<p class="text-center">{{ mensaje }}</p>

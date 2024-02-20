@@ -1,283 +1,401 @@
-const Usuario = require('../models/user.js');
 const Tarea = require('../models/tarea.js');
 const TareaAsignada = require('../models/tarea_asignada.js');
 
 //------------------------------ RUTAS PROGRAMADOR ------------------------------
 
 //LISTAR TAREAS LIBRES
-const listarTareasLibres = (req = request, res = response) => {
-    const conx = new ConexionTarea();
-
-    conx.listarTareasLibres()
-        .then(msg => {
-            console.log('Listado correcto!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No hay registros');
-            res.status(200).json({ 'msg': 'No se han encontrado registros' });
-        });
-}
-
-const tareasLibresGet = async (req, res) => {
+listarTareasLibres = async (req, res) => {
     try {
-        const tareasLibres = await Tarea.aggregate([
+        const tareasLibres = await TareaAsignada.aggregate([
             {
-                $match: {
-                    id_usuario: null
-                }
+                $match: { id_usuario: null }
             },
             {
                 $lookup: {
-                    from: "Tarea_Asignadas",
-                    localField: "id",
-                    foreignField: "id_tarea",
-                    as: "tarea_asignada"
+                    from: 'tareas',
+                    localField: 'id_tarea',
+                    foreignField: 'id',
+                    as: 'tarea'
                 }
             },
             {
-                $unwind: '$tareas'
-            },
-            {
-                $group: {
-                    _id: ''
-
-                }
+                $unwind: '$tarea'
             }
-
         ]);
-
-    } catch (error) {
-        console.error('Error al obtener comentarios por usuario:', error);
-        res.status(500).json({ 'msg': 'Error al obtener comentarios' });
+        if (tareasLibres.length > 0) {
+            console.log('Tareas libres:', tareasLibres);
+            res.status(200).json(tareasLibres);
+            return tareasLibres;
+        } else {
+            console.log('No hay tareas libres.');
+            res.status(404).json({ 'msg': 'No hay tareas libres' });
+        }
+    }
+    catch (error) {
+        console.error('Error al listar tareas libres:', error);
+        res.status(500).json({ 'msg': 'Error al listar tareas libres' });
     }
 }
 
 
+//ASIGNAR TAREA QUE NO ESTÉ ASIGNADA
+asignarTarea = async (req, res) => {
+    try {
 
-//ASIGNAR TAREA
-const asignarTarea = (req = request, res = response) => {
-    const conx = new ConexionTarea();
-    const id = req.params.id;
-    const id_usuario = req.idToken;
-
-    conx.asignarTarea(id, id_usuario)
-        .then(msg => {
-            console.log('Tarea asignada correctamente!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No se ha podido asignar la tarea');
-            res.status(200).json({ 'msg': 'No se ha podido asignar la tarea' });
-        });
-}
-
-//QUITARSE TAREA QUE TENGA MI ID ES DECIR QUE ESTÉ ASIGNADA A MI
-const desasignarTarea = (req = request, res = response) => {
-    const conx = new ConexionTarea();
-    const id = req.params.id;
-    const id_usuario = req.idToken;
-
-    conx.desasignarTarea(id, id_usuario)
-        .then(msg => {
-            console.log('Tarea desasignada correctamente!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No se ha podido desasignar la tarea');
-            res.status(200).json({ 'msg': 'No se ha podido desasignar la tarea' });
-        });
-}
-
-//LISTAR TAREAS ASIGNADAS
-const listarTareasAsignadas = (req = request, res = response) => {
-    const conx = new ConexionTarea();
-    const id_usuario = req.idToken;
-
-    conx.listarTareasAsignadas(id_usuario)
-        .then(msg => {
-            console.log('Tareas asignadas!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No hay registros');
-            res.status(200).json({ 'msg': 'No se han encontrado registros' });
-            console.log(id_usuario);
-        });
-}
-
-// CONSULTAR TAREA ASIGNADA
-const consultarTareaAsignada = (req = request, res = response) => {
-    const conx = new ConexionTarea();
-    const id = req.params.id;
-    const id_usuario = req.idToken;
-
-    conx.consultarTareaAsignada(id, id_usuario)
-        .then(msg => {
+        const id_usuario = req.idToken; 
+        const id_tarea = req.params.id;
+        const tareaAsignada = await TareaAsignada.findOneAndUpdate({ id_usuario: null, id_tarea: id_tarea }, { id_usuario: id_usuario }, { new: true });
+        if (tareaAsignada) {
             console.log('Tarea asignada');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No hay registros');
-            res.status(200).json({ 'msg': 'No se han encontrado registros' });
-        });
+            res.status(200).json(tareaAsignada);
+        } else {
+            console.log('Tarea no asignada');
+            res.status(404).json({ 'msg': 'Tarea no asignada' });
+        }
+
+    } catch (error) {
+        console.error('Error al asignar tarea:', error);
+        res.status(500).json({ 'msg': 'Error al asignar tarea' });
+    }
+}
+
+//DESASIGNAR TAREA
+desasignarTarea = async (req, res) => {
+    try {
+        const id_tarea = req.params.id;
+        const tareaDesasignada = await TareaAsignada.findOneAndUpdate({ id_tarea: id_tarea }, { id_usuario: null }, { new: true });
+        if (tareaDesasignada) {
+            console.log('Tarea desasignada');
+            res.status(200).json(tareaDesasignada);
+        } else {
+            console.log('Tarea no desasignada');
+            res.status(404).json({ 'msg': 'Tarea no desasignada' });
+        }
+
+    } catch (error) {
+        console.error('Error al desasignar tarea:', error);
+        res.status(500).json({ 'msg': 'Error al desasignar tarea' });
+    }
+}
+
+//LISTAR TODAS LAS TAREAS ASIGNADAS a mi id
+listarTareasAsignadas = async (req, res) => {
+    try {
+        const id_usuario = req.idToken;
+        const tareasAsignadas = await TareaAsignada.aggregate([
+            {
+                $match: { id_usuario: id_usuario}
+            },
+            {
+                $lookup: {
+                    from: 'tareas',
+                    localField: 'id_tarea',
+                    foreignField: 'id',
+                    as: 'tarea'
+                }
+            },
+            {
+                $unwind: '$tarea'
+            }
+        ]);
+        if (tareasAsignadas.length > 0) {
+            console.log('Tareas asignadas:', tareasAsignadas);
+            res.status(200).json(tareasAsignadas);
+            return tareasAsignadas;
+        } else {
+            console.log('No hay tareas asignadas.');
+            res.status(404).json({ 'msg': 'No hay tareas asignadas' });
+        }
+    }
+    catch (error) {
+        console.error('Error al listar tareas asignadas:', error);
+        res.status(500).json({ 'msg': 'Error al listar tareas asignadas' });
+    }
+}
+
+// CONSULTAR TAREA ASIGNADA a mi id
+consultarTareaAsignada = async (req, res) => {
+    try {
+        const id_usuario = req.idToken;
+        const id_tarea = req.params.id;
+        console.log ('id_usuario:', id_usuario);
+        console.log ('id_tarea:', id_tarea);
+        const tareaAsignada = await TareaAsignada.aggregate([
+            {
+                $match: { id_usuario: id_usuario, id_tarea: id_tarea}
+            },
+            {
+                $lookup: {
+                    from: 'tareas',
+                    localField: 'id_tarea',
+                    foreignField: 'id',
+                    as: 'tarea'
+                }
+            },
+            {
+                $unwind: '$tarea'
+            }
+        ]);
+        if (tareaAsignada.length > 0) {
+            console.log('Tarea asignada:', tareaAsignada);
+            res.status(200).json(tareaAsignada);
+            return tareaAsignada;
+        } else {
+            console.log('No hay tareas asignadas.');
+            res.status(404).json({ 'msg': 'No hay tareas asignadas' });
+        }
+    }
+    catch (error) {
+        console.error('Error al listar tareas asignadas:', error);
+        res.status(500).json({ 'msg': 'Error al listar tareas asignadas' });
+    }
 }
 
 //LISTAR TODAS LAS TAREAS
-const listarTareas = (req = request, res = response) => {
-    const conx = new ConexionTarea();
-
-    conx.listarTareas()
-        .then(msg => {
-            console.log('Tareas!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No hay registros');
-            res.status(200).json({ 'msg': 'No se han encontrado registros' });
-        });
+listarTareas = async (req, res) => {
+    try {
+        const tareas = await Tarea.find({});
+        if (tareas.length > 0) {
+            console.log('Tareas:', tareas);
+            res.status(200).json(tareas);
+            return tareas;
+        } else {
+            console.log('No hay tareas.');
+            res.status(404).json({ 'msg': 'No hay tareas' });
+        }
+    }
+    catch (error) {
+        console.error('Error al listar tareas:', error);
+        res.status(500).json({ 'msg': 'Error al listar tareas' });
+    }
 }
 
 //MODIFICAR TAREA 
-const modificarTareaPro = (req = request, res = response) => {
-    const conx = new ConexionTarea();
-    const id = req.params.id;
 
-    conx.modificarTareaPro(id, req.body)
-        .then(msg => {
-            console.log('Tarea modificada correctamente!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No se ha podido modificar la tarea');
-            res.status(200).json({ 'msg': 'No se ha podido modificar la tarea' });
-        });
-}
-
-// ------------------------------ RUTAS ADMIN ------------------------------
+modificarTareaPro = async (req, res) => {
+    try {
+        const tarea = await Tarea.updateOne({ id: req.params.id}, req.body, { new: true });
+        if (tarea) {
+            console.log('Tarea modificada');
+            res.status(200).json(tarea);
+        } else {
+            console.log('Tarea no encontrada');
+            res.status(404).json({ 'msg': 'Tarea no encontrada' });
+        }
+    }catch (error) {
+        console.error('Error al modificar tarea:', error);
+        res.status(500).json({ 'msg': 'Error al modificar tarea' });
+    }
+}    
 
 ///CREAR TAREA
-const crearTarea = (req = request, res = response) => {
-    const conx = new ConexionTarea();
-
-    conx.crearTarea(req.body)
-        .then(msg => {
-            console.log('Tarea creada correctamente!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No se ha podido crear la tarea');
-            res.status(200).json({ 'msg': 'No se ha podido crear la tarea' });
-        });
+crearTarea = async (req, res) => {
+    try {
+        const tarea = await Tarea.create(req.body);
+        if (tarea) {
+            console.log('Tarea creada');
+            res.status(200).json(tarea);
+        } else {
+            console.log('Tarea no creada');
+            res.status(404).json({ 'msg': 'Tarea no creada' });
+        }
+    } catch (error) {
+        console.error('Error al crear tarea:', error);
+        res.status(500).json({ 'msg': 'Error al crear tarea' });
+    }
 }
 
 //MODIFICAR TAREA 
-const modificarTarea = (req = request, res = response) => {
-    const conx = new ConexionTarea();
-    const id = req.params.id;
-
-    conx.modificarTarea(id, req.body)
-        .then(msg => {
-            console.log('Tarea modificada correctamente!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No se ha podido modificar la tarea');
-            res.status(200).json({ 'msg': 'No se ha podido modificar la tarea' });
-        });
+modificarTarea = async (req, res) => {
+    try {
+        const tarea = await Tarea.updateOne({ id: req.params.id }, req.body, { new: true });
+        if (tarea) {
+            console.log('Tarea modificada');
+            res.status(200).json(tarea);
+        } else {
+            console.log('Tarea no encontrada');
+            res.status(404).json({ 'msg': 'Tarea no encontrada' });
+        }
+    }
+    catch (error) {
+        console.error('Error al modificar tarea:', error);
+        res.status(500).json({ 'msg': 'Error al modificar tarea' });
+    }
 }
-
 //ELIMINAR TAREA
-const eliminarTarea = (req = request, res = response) => {
-    const conx = new ConexionTarea();
-    const id = req.params.id;
 
-    conx.eliminarTarea(id)
-        .then(msg => {
-            console.log('Tarea eliminada correctamente!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No se ha podido eliminar la tarea');
-            res.status(200).json({ 'msg': 'No se ha podido eliminar la tarea' });
-        });
+eliminarTarea = async (req, res) => {
+    try {
+        const tarea = await Tarea.deleteOne({ id: req.params.id });
+        if (tarea) {
+            console.log('Tarea eliminada');
+            res.status(200).json(tarea);
+        } else {
+            console.log('Tarea no encontrada');
+            res.status(404).json({ 'msg': 'Tarea no encontrada' });
+        }
+    } catch (error) {
+        console.error('Error al eliminar tarea:', error);
+        res.status(500).json({ 'msg': 'Error al eliminar tarea' });
+    }
 }
 
 //ASIGNAR TAREA A USUARIO
-const asignarTareaAUsuario = (req = request, res = response) => {
-    const conx = new ConexionTarea();
-    const id = req.params.id;
-    const id_usuario = req.params.id_usuario;
 
-    conx.asignarTarea(id, id_usuario)
-        .then(msg => {
-            console.log('Tarea asignada correctamente!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No se ha podido asignar la tarea');
-            res.status(200).json({ 'msg': 'No se ha podido asignar la tarea' });
-        });
+asignarTareaAUsuario = async (req, res) => {
+    try {
+        const tareaAsignada = await TareaAsignada.create(req.body);
+        if (tareaAsignada) {
+            console.log('Tarea asignada');
+            res.status(200).json(tareaAsignada);
+        } else {
+            console.log('Tarea no asignada');
+            res.status(404).json({ 'msg': 'Tarea no asignada' });
+        }
+    } catch (error) {
+        console.error('Error al asignar tarea:', error);
+        res.status(500).json({ 'msg': 'Error al asignar tarea' });
+    }
 }
 
 // VER TAREAS PROGRAMADOR
-const verTareasProgramador = (req = request, res = response) => {
-    const conx = new ConexionTarea();
 
-    conx.verTareasProgramador(req.params.id_usuario)
-        .then(msg => {
-            console.log('Tareas programador!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No hay registros');
-            res.status(200).json({ 'msg': 'No se han encontrado registros' });
-        });
+verTareasProgramador = async (req, res) => {
+    try {
+        const tareasProgramador = await TareaAsignada.aggregate([
+            {
+                $match: { id_usuario: req.params.id_usuario }
+            },
+            {
+                $lookup: {
+                    from: 'tareas',
+                    localField: 'id_tarea',
+                    foreignField: 'id',
+                    as: 'tarea'
+                }
+            },
+            {
+                $unwind: '$tarea'
+            }
+        ]);
+        if (tareasProgramador.length > 0) {
+            console.log('Tareas programador:', tareasProgramador);
+            res.status(200).json(tareasProgramador);
+            return tareasProgramador;
+        } else {
+            console.log('No hay tareas asignadas.');
+            res.status(404).json({ 'msg': 'No hay tareas asignadas' });
+        }
+    }
+    catch (error) {
+        console.error('Error al listar tareas asignadas:', error);
+        res.status(500).json({ 'msg': 'Error al listar tareas asignadas' });
+    }
 }
 
-// VER TODAS LAS TAREAS REALIZADAS 
-const verTareasRealizadas = (req = request, res = response) => {
-    const conx = new ConexionTarea();
+// VER TODAS LAS TAREAS REALIZADAS
 
-    conx.verTareasRealizadas()
-        .then(msg => {
-            console.log('Tareas realizadas!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No hay registros');
-            res.status(200).json({ 'msg': 'No se han encontrado registros' });
-        });
+verTareasRealizadas = async (req, res) => {
+    try {
+        const tareasRealizadas = await TareaAsignada.aggregate([
+            {
+                $match: { estado: 'realizada' }
+            },
+            {
+                $lookup: {
+                    from: 'tareas',
+                    localField: 'id_tarea',
+                    foreignField: 'id',
+                    as: 'tarea'
+                }
+            },
+            {
+                $unwind: '$tarea'
+            }
+        ]);
+        if (tareasRealizadas.length > 0) {
+            console.log('Tareas realizadas:', tareasRealizadas);
+            res.status(200).json(tareasRealizadas);
+            return tareasRealizadas;
+        } else {
+            console.log('No hay tareas realizadas.');
+            res.status(404).json({ 'msg': 'No hay tareas realizadas' });
+        }
+    }
+    catch (error) {
+        console.error('Error al listar tareas realizadas:', error);
+        res.status(500).json({ 'msg': 'Error al listar tareas realizadas' });
+    }
 }
+
 
 // VER TODAS LAS TAREAS PENDIENTES 
-const verTareasPendientes = (req = request, res = response) => {
-    const conx = new ConexionTarea();
 
-    conx.verTareasPendientes()
-        .then(msg => {
-            console.log('Tareas pendientes!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No hay registros');
-            res.status(200).json({ 'msg': 'No se han encontrado registros' });
-        });
+verTareasPendientes = async (req, res) => {
+    try {
+        const tareasPendientes = await TareaAsignada.aggregate([
+            {
+                $match: { estado: 'pendiente' }
+            },
+            {
+                $lookup: {
+                    from: 'tareas',
+                    localField: 'id_tarea',
+                    foreignField: 'id',
+                    as: 'tarea'
+                }
+            },
+            {
+                $unwind: '$tarea'
+            }
+        ]);
+        if (tareasPendientes.length > 0) {
+            console.log('Tareas pendientes:', tareasPendientes);
+            res.status(200).json(tareasPendientes);
+            return tareasPendientes;
+        } else {
+            console.log('No hay tareas pendientes.');
+            res.status(404).json({ 'msg': 'No hay tareas pendientes' });
+        }
+    }
+    catch (error) {
+        console.error('Error al listar tareas pendientes:', error);
+        res.status(500).json({ 'msg': 'Error al listar tareas pendientes' });
+    }
 }
 
-// VER RANKING DE TAREAS 
-const ranking = (req = request, res = response) => {
-    const conx = new ConexionTarea();
 
-    conx.ranking()
-        .then(msg => {
-            console.log('Ranking!');
-            res.status(200).json(msg);
-        })
-        .catch(err => {
-            console.log('No hay registros');
-            res.status(200).json({ 'msg': 'No se han encontrado registros' });
-        });
+// VER RANKING DE TAREAS // sacar los usuarios que más tareas terminadas tiene a su id
+
+ranking = async (req, res) => {
+    try {
+        const ranking = await TareaAsignada.aggregate([
+            {
+                $match: { estado: 'realizada' }
+            },
+            {
+                $group: {
+                    _id: '$id_usuario',
+                    tareasRealizadas: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { tareasRealizadas: -1 }
+            }
+        ]);
+        if (ranking.length > 0) {
+            console.log('Ranking:', ranking);
+            res.status(200).json(ranking);
+            return ranking;
+        } else {
+            console.log('No hay ranking.');
+            res.status(404).json({ 'msg': 'No hay ranking' });
+        }
+    }
+    catch (error) {
+        console.error('Error al listar ranking:', error);
+        res.status(500).json({ 'msg': 'Error al listar ranking' });
+    }
 }
 
 // -------------------------------- EXPORTACIONES -------------------------------- 

@@ -25,7 +25,7 @@ const tareaSchema = new mongooose.Schema({
         type: Boolean,
         required: true
     }
-}, {collection: 'Tareas' , versionKey:false});
+}, {collection: 'tareas' , versionKey:false});
 
 const TareaModel = mongooose.model('Tarea', tareaSchema);
 

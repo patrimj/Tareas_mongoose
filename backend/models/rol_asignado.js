@@ -9,9 +9,9 @@ const rolAsignadoSchema = new mongooose.Schema({
         type: Number,
         required: true
     }
-}, {collection: 'Rol_Asignados' , versionKey:false});
+}, {collection: 'rol_asignados' , versionKey:false});
 
-const RolAsignadoModel = mongooose.model('Rol_Asignado', rolAsignadoSchema);
+const RolAsignadoModel = mongooose.model('rol_asignados', rolAsignadoSchema);
 
 module.exports = RolAsignadoModel;
 

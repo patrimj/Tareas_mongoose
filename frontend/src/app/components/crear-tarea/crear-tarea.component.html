@@ -1,0 +1,42 @@
+<div class="container mt-4">
+    <h2 class="text-center">CREAR TAREA</h2>
+    <form (ngSubmit)="handleSubmit()" class="form-group p-5 rounded bg-white shadow">
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción:</label>
+            <input type="text" [(ngModel)]="descripcion" name="descripcion" required class="form-control"
+                id="descripcion">
+        </div>
+
+        <div class="mb-3">
+            <label for="dificultad" class="form-label">Dificultad:</label>
+            <input type="text" [(ngModel)]="dificultad" name="dificultad" required class="form-control" id="dificultad">
+        </div>
+
+        <div class="mb-3">
+            <label for="horas_previstas" class="form-label">Horas previstas:</label>
+            <input type="number" [(ngModel)]="horas_previstas" name="horas_previstas" required class="form-control"
+                id="horas_previstas">
+        </div>
+
+        <div class="mb-3">
+            <label for="horas_realizadas" class="form-label">Horas realizadas:</label>
+            <input type="number" [(ngModel)]="horas_realizadas" name="horas_realizadas" required class="form-control"
+                id="horas_realizadas">
+        </div>
+
+        <div class="mb-3">
+            <label for="porcentaje_realizacion" class="form-label">Porcentaje:</label>
+            <input type="number" [(ngModel)]="porcentaje_realizacion" name="porcentaje_realizacion" required
+                class="form-control" id="porcentaje_realizacion">
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" [(ngModel)]="completada" name="completada" class="form-check-input" id="completada">
+            <label for="completada" class="form-check-label">Completada:</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Crear Tarea</button>
+        <button (click)="inicio()" type="button" class="btn btn-secondary mt-3">Volver al inicio</button>
+    </form>
+    <p class="text-center">{{ mensaje }}</p>
+</div>

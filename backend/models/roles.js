@@ -5,7 +5,7 @@ const rolSchema = new mongooose.Schema({
         type: String,
         required: true
     }
-}, {collection: 'Roles' , versionKey:false});
+}, {collection: 'roles' , versionKey:false});
 
 const RolModel = mongooose.model('Rol', rolSchema); 
 

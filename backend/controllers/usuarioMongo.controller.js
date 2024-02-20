@@ -1,16 +1,12 @@
 const Usuario = require('../models/user.js');
+const { generarJWT } = require('../helpers/generate_jwt.js');
 
 //LOGIN CON TOKEN
 const login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const usuario = await Usuario.findOne({
-            where: {
-                email: email,
-                password: password
-            }
-        });
+        const usuario = await Usuario.findOne({ email: email, password: password });
 
         if (usuario) {
             console.log('Usuario iniciado' + usuario.id);
@@ -25,7 +21,17 @@ const login = async (req, res) => {
 
     } catch (error) {
         console.error('Fallo en el inicio de sesión', error);
-        res.status(500).json({ 'msg': 'Eroor al iniciar sesión' });
+        res.status(500).json({ 'msg': 'Error al iniciar sesión' });
+    }
+}
+
+const esAdmin = async (id_usuario) => {
+    try {
+        let resultado = await RolAsignado.find({ id_usuario: id_usuario }, 'id_rol');
+        return resultado;
+    } catch (error) {
+        console.error('Error al buscar el rol del usuario:', error);
+        throw error;
     }
 }
 
@@ -35,20 +41,13 @@ const registro = async (req, res) => {
     const { id, nombre, email, password } = req.body;
 
     try {
-        await Usuario.create(req.body, (err, usuario) => {
-            if (err) {
-                console.error('Error al registrar usuario:', err);
-                res.status(500).json({ 'msg': 'Error al registrar usuario' });
-            } else {
-                console.log('Usuario registrado correctamente!');
-                res.status(201).json(usuario);
-            }
-        });
+        const usuario = await Usuario.create(req.body);
+        console.log('Usuario registrado correctamente!');
+        res.status(201).json(usuario);
     } catch (error) {
         console.error('Error al registrar el usuario:', error);
         res.status(500).json({ 'msg': 'Error al regristrar el usuario' });
     }
-
 }
 
 //ALTA USUARIO
@@ -56,15 +55,9 @@ const altaUsuario = async (req, res) => {
     const { id, nombre, email, password } = req.body;
 
     try {
-        await Usuario.create(req.body, (err, usuario) => {
-            if (err) {
-                console.error('Error al registrar usuario:', err);
-                res.status(500).json({ 'msg': 'Error al registrar usuario' });
-            } else {
-                console.log('Usuario registrado correctamente!');
-                res.status(201).json(usuario);
-            }
-        });
+        const usuario = await Usuario.create(req.body);
+        console.log('Usuario registrado correctamente!');
+        res.status(201).json(usuario);
     } catch (error) {
         console.error('Error al crear usuario:', error);
         res.status(500).json({ 'msg': 'Error al crear usuario' });
@@ -155,5 +148,6 @@ module.exports = {
     altaUsuario,
     bajaUsuario,
     modificarUsuario,
-    usuarioGet
+    usuarioGet,
+    esAdmin
 }

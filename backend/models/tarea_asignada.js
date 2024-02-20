@@ -9,9 +9,9 @@ const tareaAsignadaSchema = new mongooose.Schema({
         type: Number,
         required: true
     }
-}, {collection: 'Tarea_Asignadas' , versionKey:false});
+}, {collection: 'tarea_asignadas' , versionKey:false});
 
-const TareaAsignadaModel = mongooose.model('Tarea_Asignada', tareaAsignadaSchema);
+const TareaAsignadaModel = mongooose.model('TareaAsignada', tareaAsignadaSchema);
 
 module.exports = TareaAsignadaModel;
 

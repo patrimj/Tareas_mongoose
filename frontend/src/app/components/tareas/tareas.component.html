@@ -1,0 +1,23 @@
+<header class="bg-primary text-white p-3" style="background-color: rgba(80, 133, 255, 0.612) !important;">
+    <h1 class="text-center mb-4">Hola, {{ nombre }}</h1>
+</header>
+
+<div class="container mt-4 form-group p-5 rounded bg-white shadow  d-flex flex-column align-items-center"
+    style="background-color: rgba(80, 133, 255, 0.612) !important;">
+    @if (esAmbos()) {
+    <button (click)="crearTarea()" class="btn btn-success mb-2 ">Crear tarea</button>
+    <button (click)="modificarTarea()" class="btn btn-warning mb-2">Modificar tarea</button>
+    <button (click)="consultarTarea()" class="btn btn-info mb-2">Consultar tarea</button>
+    <button (click)="listarAsignadas()" class="btn btn-primary mb-2">Listar tareas</button>
+
+    }@else if (esAdmin()) {
+    <button (click)="crearTarea()" class="btn btn-success mb-2">Crear tarea</button>
+    <button (click)="modificarTarea()" class="btn btn-warning mb-2">Modificar tarea</button>
+    <button (click)="consultarTarea()" class="btn btn-info mb-2">Consultar tarea</button>
+
+    }@else {
+    <nav>
+        <button (click)="listarAsignadas()" class="btn btn-primary mb-2">Listar tareas</button>
+    </nav>
+    }
+</div>

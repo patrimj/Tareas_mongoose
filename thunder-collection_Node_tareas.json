@@ -1,0 +1,487 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Node_tareas",
+    "dateExported": "2024-02-02T20:25:27.943Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "d8df539d-73b3-44c9-af1e-de2de9a6cd09",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Registrarse",
+            "url": "http://localhost:9090/api/registrarse",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-01-21T22:23:27.794Z",
+            "modified": "2024-02-02T20:07:40.920Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\": \"registro\",\n  \"email\": \"registrando@correo.com\",\n  \"password\": \"admin123\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e6f86bf3-7b8e-4c2a-9483-289ae63890a9",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Login",
+            "url": "http://localhost:9090/api/login",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-01-21T22:24:06.915Z",
+            "modified": "2024-02-02T20:07:58.939Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"registrando@correo.com\",\n  \"password\": \"admin123\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ae1edbdd-bd5f-4570-9400-31ec1be813c2",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Cambiar contraseña",
+            "url": "http://localhost:9090/api/perfil/password/registrando@correo.com",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2024-01-21T22:24:49.221Z",
+            "modified": "2024-02-02T20:08:34.785Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjo2LCJpYXQiOjE3MDU5NDk3NTQsImV4cCI6MTgzMjE4MDE1NH0.jd6Kv7BDy6ogLXMyK5QpNS5e8eoz_1BHueRNIBmpmhE"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"password\": \"admin1234\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "598f12ce-77d2-42ad-ae86-283f699233d7",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Alta usuario",
+            "url": "http://localhost:9090/api/usuario/alta",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-01-21T22:31:23.625Z",
+            "modified": "2024-02-02T20:09:05.686Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\": \"Alta\",\n  \"email\": \"alta@correo.com\",\n  \"password\": \"admin123\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0f0aa631-39ed-407b-932c-c14634df7df9",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Baja usuario",
+            "url": "http://localhost:9090/api/usuario/baja/25",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-01-21T22:32:33.455Z",
+            "modified": "2024-02-02T20:09:51.007Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "586f7242-6de7-4bd0-8962-1152802bb631",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Modificar usuario",
+            "url": "http://localhost:9090/api/usuario/modificar/3",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2024-01-21T22:35:47.495Z",
+            "modified": "2024-02-02T20:10:19.379Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\": \"Modificar\",\n  \"email\": \"modificar@correo.com\",\n  \"password\": \"hola\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "980b7a72-e09b-40a0-886f-47a9a546efc7",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Listar tareas libres",
+            "url": "http://localhost:9090/api/tareas/libres",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-01-22T19:46:25.272Z",
+            "modified": "2024-01-22T19:46:49.184Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6fcfdcbf-0cf3-44d9-8220-6a407dbea78f",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Asignar tarea",
+            "url": "http://localhost:9090/api/tarea/asignar/4",
+            "method": "PUT",
+            "sortNum": 90000,
+            "created": "2024-01-22T19:58:47.535Z",
+            "modified": "2024-02-02T20:18:36.581Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "081aa0ca-0085-49db-a272-d41966e1d216",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Desasignar tarea",
+            "url": "http://localhost:9090/api/tarea/desasignar/4",
+            "method": "PUT",
+            "sortNum": 100000,
+            "created": "2024-01-22T20:04:45.017Z",
+            "modified": "2024-02-02T20:18:54.796Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "cabb5b0b-c80d-4bef-b83b-36ac020e45b1",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Tareas Asignadas",
+            "url": "http://localhost:9090/api/tareas/asignadas",
+            "method": "GET",
+            "sortNum": 105000,
+            "created": "2024-01-22T20:06:07.635Z",
+            "modified": "2024-01-22T20:06:50.191Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b5a737de-cabf-4b87-9cae-ca5a04a4ce42",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Sacar rol",
+            "url": "http://localhost:9090/api/rol/4",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2024-01-31T08:33:14.573Z",
+            "modified": "2024-02-02T20:20:16.557Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b47ea2fd-35aa-4206-8318-4eef25002c03",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Consultar Tarea Asignada",
+            "url": "http://localhost:9090/api/tarea/asignada/1",
+            "method": "GET",
+            "sortNum": 115000,
+            "created": "2024-01-22T20:13:55.661Z",
+            "modified": "2024-01-22T20:14:36.466Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6c33acf8-f97f-4ddc-9b46-65bfd6e24aa4",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Listar todas las tareas",
+            "url": "http://localhost:9090/api/tareas",
+            "method": "GET",
+            "sortNum": 125000,
+            "created": "2024-01-22T20:17:26.279Z",
+            "modified": "2024-01-22T20:17:56.871Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "fb37da34-132e-4071-9e6f-d12bcb44ddb0",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Crear tarea",
+            "url": "http://localhost:9090/api/tarea/crear",
+            "method": "POST",
+            "sortNum": 135000,
+            "created": "2024-01-22T20:18:47.269Z",
+            "modified": "2024-02-02T20:21:13.311Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"descripcion\": \"Tarea a eliminar\",\n  \"dificultad\": \"XL\",\n  \"horas_previstas\": 13,\n  \"horas_realizadas\": 10,\n  \"porcentaje_realizacion\": 80,\n  \"completada\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "14071046-f66e-44d1-a17e-e63100f9e070",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Modificar tarea",
+            "url": "http://localhost:9090/api/tarea/modificar/41",
+            "method": "PUT",
+            "sortNum": 145000,
+            "created": "2024-01-22T20:19:36.704Z",
+            "modified": "2024-02-02T20:21:31.688Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"descripcion\": \"Tarea ssss\",\n  \"dificultad\": \"L\",\n  \"horas_previstas\": 9,\n  \"horas_realizadas\": 5,\n  \"porcentaje_realizacion\": 50,\n  \"completada\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "1c309d97-3e60-4ab6-8d62-fd6d2becbe0b",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Modificar tarea Prog",
+            "url": "http://localhost:9090/api/tareaPro/modificar/1",
+            "method": "PUT",
+            "sortNum": 150000,
+            "created": "2024-02-02T19:01:54.032Z",
+            "modified": "2024-02-02T20:22:42.336Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id_tarea\": 1,\n  \"id_usuario\": 6,\n  \"tarea\": {\n    \"id\": 1,\n    \"descripcion\": \"Tarea modificada por el programador\",\n    \"dificultad\": \"XL\",\n    \"horas_previstas\": 4,\n    \"horas_realizadas\": 9,\n    \"porcentaje_realizacion\": 10,\n    \"completada\": true,\n    \"createdAt\": \"2024-01-22T10:23:03.000Z\",\n    \"updatedAt\": \"2024-01-22T10:23:03.000Z\"\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c740fd4d-f69a-493e-9c39-aa431106642b",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Eliminar tarea",
+            "url": "http://localhost:9090/api/tarea/eliminar/23",
+            "method": "DELETE",
+            "sortNum": 155000,
+            "created": "2024-01-22T20:26:19.134Z",
+            "modified": "2024-01-31T07:58:30.205Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"descripcion\": \"Tarea ssss\",\n  \"dificultad\": \"L\",\n  \"horas_previstas\": 10,\n  \"horas_realizadas\": 5,\n  \"porcentaje_realizacion\": 50,\n  \"completada\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "011dc1ec-2b4d-4d1e-9b2e-2cbef848353f",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Asignar tarea a usuario",
+            "url": "http://localhost:9090/api/tarea/asignar/4/6",
+            "method": "PUT",
+            "sortNum": 165000,
+            "created": "2024-01-22T20:27:17.658Z",
+            "modified": "2024-02-02T20:23:42.088Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"descripcion\": \"Tarea ssss\",\n  \"dificultad\": \"L\",\n  \"horas_previstas\": 10,\n  \"horas_realizadas\": 5,\n  \"porcentaje_realizacion\": 50,\n  \"completada\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f0d70e25-cf2a-4643-98f9-73b707dae38a",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Ver tareas programador",
+            "url": "http://localhost:9090/api/tareas/programador/6",
+            "method": "GET",
+            "sortNum": 175000,
+            "created": "2024-01-22T20:28:10.693Z",
+            "modified": "2024-01-22T20:29:00.847Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"descripcion\": \"Tarea ssss\",\n  \"dificultad\": \"L\",\n  \"horas_previstas\": 10,\n  \"horas_realizadas\": 5,\n  \"porcentaje_realizacion\": 50,\n  \"completada\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "fae1fbfd-b4d5-4703-8137-fba1ce170a11",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Ver tareas realizadas",
+            "url": "http://localhost:9090/api/tareas/realizadas",
+            "method": "GET",
+            "sortNum": 185000,
+            "created": "2024-01-22T20:29:30.324Z",
+            "modified": "2024-01-22T20:30:03.363Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"descripcion\": \"Tarea ssss\",\n  \"dificultad\": \"L\",\n  \"horas_previstas\": 10,\n  \"horas_realizadas\": 5,\n  \"porcentaje_realizacion\": 50,\n  \"completada\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c07a5850-d047-4b19-8487-55f7724830cd",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Ver tareas pendientes",
+            "url": "http://localhost:9090/api/tareas/pendientes",
+            "method": "GET",
+            "sortNum": 195000,
+            "created": "2024-01-22T20:30:12.303Z",
+            "modified": "2024-01-22T20:30:37.404Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"descripcion\": \"Tarea ssss\",\n  \"dificultad\": \"L\",\n  \"horas_previstas\": 10,\n  \"horas_realizadas\": 5,\n  \"porcentaje_realizacion\": 50,\n  \"completada\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "def4dc71-7c78-483e-94eb-f03ce62c3d05",
+            "colId": "ce20d060-b7f5-4faf-82d5-1d8ece47b74b",
+            "containerId": "",
+            "name": "Ver ranking de tareas",
+            "url": "http://localhost:9090/api/ranking",
+            "method": "GET",
+            "sortNum": 205000,
+            "created": "2024-01-22T20:30:14.258Z",
+            "modified": "2024-01-22T20:31:06.380Z",
+            "headers": [
+                {
+                    "name": "x-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNzA1OTUyNDE2LCJleHAiOjE4MzIxODI4MTZ9.Yiy3-wXLHnDmVcQ0-H5mw6LBlIlOe76OKvFOq0cQQU8"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"descripcion\": \"Tarea ssss\",\n  \"dificultad\": \"L\",\n  \"horas_previstas\": 10,\n  \"horas_realizadas\": 5,\n  \"porcentaje_realizacion\": 50,\n  \"completada\": false\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
