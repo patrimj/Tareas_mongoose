@@ -299,8 +299,8 @@ verTareasProgramador = async (req, res) => {
             res.status(200).json(tareasProgramador);
             return tareasProgramador;
         } else {
-            console.log('No hay tareas asignadas.');
-            console.log('tareasProgramador:', tareasProgramador);
+            console.log('No hay tareas asignadas al orogramador.');
+            console.log('tareas Programador:', tareasProgramador);
             res.status(404).json({ 'msg': 'No hay tareas asignadas' });
         }
     }
