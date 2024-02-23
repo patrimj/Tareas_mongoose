@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "65d7d550c409598c5edfc2b6"
+  },
+  "id": 1,
+  "descripcion": "Tarea Modificada",
+  "dificultad": "XL",
+  "horas_previstas": 13,
+  "horas_realizadas": 0,
+  "porcentaje_realizacion": 0,
+  "completada": true
+},
+{
+  "_id": {
+    "$oid": "65d7d5b3c409598c5edfc2ba"
+  },
+  "id": 2,
+  "descripcion": "Tarea 2",
+  "dificultad": "S",
+  "horas_previstas": 19,
+  "horas_realizadas": 0,
+  "porcentaje_realizacion": 0,
+  "completada": false
+},
+{
+  "_id": {
+    "$oid": "65d7d5bec409598c5edfc2be"
+  },
+  "id": 3,
+  "descripcion": "Tarea 3",
+  "dificultad": "S",
+  "horas_previstas": 23,
+  "horas_realizadas": 0,
+  "porcentaje_realizacion": 0,
+  "completada": false
+},
+{
+  "_id": {
+    "$oid": "65d7d5c7c409598c5edfc2c2"
+  },
+  "id": 4,
+  "descripcion": "Tarea 4",
+  "dificultad": "S",
+  "horas_previstas": 2,
+  "horas_realizadas": 0,
+  "porcentaje_realizacion": 0,
+  "completada": false
+},
+{
+  "_id": {
+    "$oid": "65d7d8cc88799ffedc17c331"
+  },
+  "id": 5,
+  "descripcion": "Tarea sin asignar",
+  "dificultad": "XS",
+  "horas_previstas": 1,
+  "horas_realizadas": 0,
+  "porcentaje_realizacion": 0,
+  "completada": false
+}]

@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "65d4d629d5c39383336e3de0"
+  },
+  "id": 1,
+  "id_usuario": 1,
+  "id_tarea": 1
+},
+{
+  "_id": {
+    "$oid": "65d7d6a988799ffedc17c324"
+  },
+  "id": 2,
+  "id_usuario": null,
+  "id_tarea": 2
+},
+{
+  "_id": {
+    "$oid": "65d7d6b888799ffedc17c325"
+  },
+  "id": 3,
+  "id_usuario": 1,
+  "id_tarea": 3
+},
+{
+  "_id": {
+    "$oid": "65d7d6c788799ffedc17c328"
+  },
+  "id": 4,
+  "id_usuario": 2,
+  "id_tarea": 4
+},
+{
+  "_id": {
+    "$oid": "65d7d8b888799ffedc17c32f"
+  },
+  "id": 5,
+  "id_usuario": null,
+  "id_tarea": 5
+}]
