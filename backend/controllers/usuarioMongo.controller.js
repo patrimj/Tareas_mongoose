@@ -9,7 +9,7 @@ const login = async (req, res) => {
         const usuario = await Usuario.findOne({ email: email, password: password });
 
         if (usuario) {
-            console.log('Usuario iniciado' + usuario.id);
+            console.log('Usuario' + '' + usuario.email);
             const token = generarJWT(usuario.id)
             console.log(usuario)
             console.log(token);
@@ -56,11 +56,11 @@ const altaUsuario = async (req, res) => {
 
     try {
         const usuario = await Usuario.create(req.body);
-        console.log('Usuario registrado correctamente!');
+        console.log('Usuario dado de alta correctamente!');
         res.status(201).json(usuario);
     } catch (error) {
-        console.error('Error al crear usuario:', error);
-        res.status(500).json({ 'msg': 'Error al crear usuario' });
+        console.error('Error al dar de alta al usuario:', error);
+        res.status(500).json({ 'msg': 'Error al dar de alta al usuario' });
     }
 }
 
@@ -69,14 +69,14 @@ const bajaUsuario = async (req, res) => {
     try {
         const usuario = await Usuario.deleteOne({ id: req.params.id });
         if (usuario.deletedCount > 0) {
-            console.log('Usuario eliminado');
+            console.log('Usuario dado de baja');
             res.status(200).json(usuario);
         } else {
             console.log('Usuario no encontrado!');
             res.status(404).json({ 'msg': 'Usuario no encontrado' });
         }
     } catch (error) {
-        console.error('Error al eliminar usuario:', error);
+        console.error('Erroro al eliminar usuario:', error);
         res.status(500).json({ 'msg': 'Error al eliminar usuario' });
     }
 
@@ -126,8 +126,8 @@ const cambiarPassword = async (req, res) => {
 const usuarioGet = async (req, res) => {
 
     try {
-        const usuario = await Usuario.find({id: req.params.id});
-        if (usuario.length > 0)  {
+        const usuario = await Usuario.find({ id: req.params.id });
+        if (usuario.length > 0) {
             console.log('Usuario encontrado!');
             res.status(200).json(usuario);
         } else {
@@ -138,7 +138,7 @@ const usuarioGet = async (req, res) => {
         console.error('Error al obtener usuario por ID:', error);
         res.status(500).json({ 'msg': 'Error al obtener usuario por ID' });
     }
-} 
+}
 
 
 module.exports = {

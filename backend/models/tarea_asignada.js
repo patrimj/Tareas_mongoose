@@ -1,6 +1,10 @@
 const mongooose = require ('mongoose');
 
 const tareaAsignadaSchema = new mongooose.Schema({
+    id: {
+        type: Number,
+        required: true
+    },
     id_tarea: {
         type: Number,
         required: true

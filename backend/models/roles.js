@@ -1,6 +1,10 @@
 const mongooose = require ('mongoose');
 
 const rolSchema = new mongooose.Schema({
+    id: {  
+        type: Number,
+        required: true
+    },
     nombre: {
         type: String,
         required: true

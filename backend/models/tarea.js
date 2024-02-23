@@ -1,6 +1,10 @@
 const mongooose = require ('mongoose');
 
 const tareaSchema = new mongooose.Schema({
+    id: {  
+        type: Number,
+        required: true
+    },
     descripcion: {  
         type: String,
         required: true

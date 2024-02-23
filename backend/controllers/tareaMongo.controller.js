@@ -22,6 +22,7 @@ listarTareasLibres = async (req, res) => {
                 $unwind: '$tarea'
             }
         ]);
+
         if (tareasLibres.length > 0) {
             console.log('Tareas libres:', tareasLibres);
             res.status(200).json(tareasLibres);
@@ -41,10 +42,11 @@ listarTareasLibres = async (req, res) => {
 //ASIGNAR TAREA QUE NO ESTÉ ASIGNADA
 asignarTarea = async (req, res) => {
     try {
-
-        const id_usuario = req.idToken; 
+        const id_usuario = req.idToken;
         const id_tarea = req.params.id;
+
         const tareaAsignada = await TareaAsignada.findOneAndUpdate({ id_usuario: null, id_tarea: id_tarea }, { id_usuario: id_usuario }, { new: true });
+        
         if (tareaAsignada) {
             console.log('Tarea asignada');
             res.status(200).json(tareaAsignada);
@@ -63,7 +65,9 @@ asignarTarea = async (req, res) => {
 desasignarTarea = async (req, res) => {
     try {
         const id_tarea = req.params.id;
+
         const tareaDesasignada = await TareaAsignada.findOneAndUpdate({ id_tarea: id_tarea }, { id_usuario: null }, { new: true });
+       
         if (tareaDesasignada) {
             console.log('Tarea desasignada');
             res.status(200).json(tareaDesasignada);
@@ -82,9 +86,10 @@ desasignarTarea = async (req, res) => {
 listarTareasAsignadas = async (req, res) => {
     try {
         const id_usuario = req.idToken;
+
         const tareasAsignadas = await TareaAsignada.aggregate([
             {
-                $match: { id_usuario: id_usuario}
+                $match: { id_usuario: id_usuario }
             },
             {
                 $lookup: {
@@ -98,6 +103,7 @@ listarTareasAsignadas = async (req, res) => {
                 $unwind: '$tarea'
             }
         ]);
+
         if (tareasAsignadas.length > 0) {
             console.log('Tareas asignadas:', tareasAsignadas);
             res.status(200).json(tareasAsignadas);
@@ -117,15 +123,14 @@ listarTareasAsignadas = async (req, res) => {
 consultarTareaAsignada = async (req, res) => {
     try {
         const id_usuario = req.idToken;
-        const id_tarea = req.params.id;
-        console.log ('id_usuario:', id_usuario);
-        console.log ('id_tarea:', id_tarea);
+
         const tareaAsignada = await TareaAsignada.aggregate([
             {
-                $match: { id_usuario: id_usuario, id_tarea: id_tarea}
+                $match: { id_usuario: id_usuario }
             },
             {
                 $lookup: {
+
                     from: 'tareas',
                     localField: 'id_tarea',
                     foreignField: 'id',
@@ -134,8 +139,12 @@ consultarTareaAsignada = async (req, res) => {
             },
             {
                 $unwind: '$tarea'
+            },
+            {
+                $match: { 'tarea.id': Number(req.params.id) } // el number es para que lo reconozca como número (si no da error, porque lo encuentra como string)
             }
         ]);
+
         if (tareaAsignada.length > 0) {
             console.log('Tarea asignada:', tareaAsignada);
             res.status(200).json(tareaAsignada);
@@ -155,6 +164,7 @@ consultarTareaAsignada = async (req, res) => {
 listarTareas = async (req, res) => {
     try {
         const tareas = await Tarea.find({});
+        
         if (tareas.length > 0) {
             console.log('Tareas:', tareas);
             res.status(200).json(tareas);
@@ -174,7 +184,7 @@ listarTareas = async (req, res) => {
 
 modificarTareaPro = async (req, res) => {
     try {
-        const tarea = await Tarea.updateOne({ id: req.params.id}, req.body, { new: true });
+        const tarea = await Tarea.findOneAndUpdate({ id: req.params.id }, req.body, { new: true });
         if (tarea) {
             console.log('Tarea modificada');
             res.status(200).json(tarea);
@@ -182,11 +192,11 @@ modificarTareaPro = async (req, res) => {
             console.log('Tarea no encontrada');
             res.status(404).json({ 'msg': 'Tarea no encontrada' });
         }
-    }catch (error) {
+    } catch (error) {
         console.error('Error al modificar tarea:', error);
         res.status(500).json({ 'msg': 'Error al modificar tarea' });
     }
-}    
+}
 
 ///CREAR TAREA
 crearTarea = async (req, res) => {
@@ -208,7 +218,7 @@ crearTarea = async (req, res) => {
 //MODIFICAR TAREA 
 modificarTarea = async (req, res) => {
     try {
-        const tarea = await Tarea.updateOne({ id: req.params.id }, req.body, { new: true });
+        const tarea = await Tarea.findOneAndUpdate({ id: req.params.id }, req.body, { new: true });
         if (tarea) {
             console.log('Tarea modificada');
             res.status(200).json(tarea);
@@ -244,7 +254,10 @@ eliminarTarea = async (req, res) => {
 
 asignarTareaAUsuario = async (req, res) => {
     try {
-        const tareaAsignada = await TareaAsignada.create(req.body);
+        const id_tarea = req.params.id;
+        const id_usuario = req.params.id_usuario;
+
+        const tareaAsignada = await TareaAsignada.findOneAndUpdate({ id_tarea: id_tarea }, { id_usuario: id_usuario }, { new: true });
         if (tareaAsignada) {
             console.log('Tarea asignada');
             res.status(200).json(tareaAsignada);
@@ -262,9 +275,12 @@ asignarTareaAUsuario = async (req, res) => {
 
 verTareasProgramador = async (req, res) => {
     try {
+        const id_usuario = Number(req.params.id_usuario);
+        console.log('id_usuario:', id_usuario);
+
         const tareasProgramador = await TareaAsignada.aggregate([
             {
-                $match: { id_usuario: req.params.id_usuario }
+                $match: { id_usuario: id_usuario }
             },
             {
                 $lookup: {
@@ -284,6 +300,7 @@ verTareasProgramador = async (req, res) => {
             return tareasProgramador;
         } else {
             console.log('No hay tareas asignadas.');
+            console.log('tareasProgramador:', tareasProgramador);
             res.status(404).json({ 'msg': 'No hay tareas asignadas' });
         }
     }
@@ -299,9 +316,6 @@ verTareasRealizadas = async (req, res) => {
     try {
         const tareasRealizadas = await TareaAsignada.aggregate([
             {
-                $match: { estado: 'realizada' }
-            },
-            {
                 $lookup: {
                     from: 'tareas',
                     localField: 'id_tarea',
@@ -311,6 +325,9 @@ verTareasRealizadas = async (req, res) => {
             },
             {
                 $unwind: '$tarea'
+            },
+            {
+                $match: { 'tarea.completada': true }
             }
         ]);
         if (tareasRealizadas.length > 0) {
@@ -335,9 +352,6 @@ verTareasPendientes = async (req, res) => {
     try {
         const tareasPendientes = await TareaAsignada.aggregate([
             {
-                $match: { estado: 'pendiente' }
-            },
-            {
                 $lookup: {
                     from: 'tareas',
                     localField: 'id_tarea',
@@ -347,6 +361,9 @@ verTareasPendientes = async (req, res) => {
             },
             {
                 $unwind: '$tarea'
+            },
+            {
+                $match: { 'tarea.completada': false }
             }
         ]);
         if (tareasPendientes.length > 0) {
@@ -365,37 +382,48 @@ verTareasPendientes = async (req, res) => {
 }
 
 
-// VER RANKING DE TAREAS // sacar los usuarios que más tareas terminadas tiene a su id
+// VER RANKING DE TAREAS 
 
 ranking = async (req, res) => {
+
     try {
+
         const ranking = await TareaAsignada.aggregate([
             {
-                $match: { estado: 'realizada' }
+                $lookup: {
+                    from: 'tareas',
+                    localField: 'id_tarea',
+                    foreignField: 'id',
+                    as: 'tarea'
+                }
+            },
+            {
+                $unwind: '$tarea'
             },
             {
                 $group: {
                     _id: '$id_usuario',
-                    tareasRealizadas: { $sum: 1 }
+                    id_usuario: { $first: '$id_usuario' },
+                    total: { $sum: 1 }
                 }
             },
-            {
-                $sort: { tareasRealizadas: -1 }
-            }
         ]);
+
         if (ranking.length > 0) {
+
             console.log('Ranking:', ranking);
             res.status(200).json(ranking);
             return ranking;
-        } else {
-            console.log('No hay ranking.');
-            res.status(404).json({ 'msg': 'No hay ranking' });
         }
-    }
-    catch (error) {
+        else {
+            console.log('No hay tareas realizadas.');
+            res.status(404).json({ 'msg': 'No hay tareas realizadas' });
+        }
+    } catch (error) {
         console.error('Error al listar ranking:', error);
         res.status(500).json({ 'msg': 'Error al listar ranking' });
     }
+
 }
 
 // -------------------------------- EXPORTACIONES -------------------------------- 
