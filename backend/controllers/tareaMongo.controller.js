@@ -164,7 +164,7 @@ consultarTareaAsignada = async (req, res) => {
 listarTareas = async (req, res) => {
     try {
         const tareas = await Tarea.find({});
-        
+
         if (tareas.length > 0) {
             console.log('Tareas:', tareas);
             res.status(200).json(tareas);
